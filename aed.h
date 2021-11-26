@@ -18,9 +18,9 @@ struct estado {
 	char auxPalavra[100];
 	char auxLetra;
 	char cidadeChar[50];
-	int aux1; //usada para verificar se cartao sus foi encontrado
-	int aux2; //usada para setar o numero de clientes
-	int aux3; //usada para verificar a quantidade de doses
+	int aux1;
+	int aux2;
+	int aux3;
 	int cidadeInt;
 };
 typedef struct estado estado;
@@ -55,7 +55,7 @@ extern  bool_t * funcbool_1(estado *, CLIENT *);
 extern  bool_t * funcbool_1_svc(estado *, struct svc_req *);
 #define objeto 9
 extern  estado * objeto_1(estado *, CLIENT *);
-extern  estado objeto_1_svc(estado *, struct svc_req *);
+extern  estado * objeto_1_svc(estado *, struct svc_req *);
 extern int add_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
