@@ -143,3 +143,18 @@ objeto_1(estado *argp, CLIENT *clnt)
 	}
 	return (&clnt_res);
 }
+
+request_vac *
+requisitar_vacina_1(request_vac *argp, CLIENT *clnt)
+{
+	static request_vac clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, requisitar_vacina,
+		(xdrproc_t) xdr_request_vac, (caddr_t) argp,
+		(xdrproc_t) xdr_request_vac, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}

@@ -25,6 +25,15 @@ struct estado {
 };
 typedef struct estado estado;
 
+struct request_vac {
+	char estado[100];
+	char id[100];
+	char id_type;
+	char status;
+	int qtt_vacinas;
+};
+typedef struct request_vac request_vac;
+
 #define ADD_PROG 0x23451111
 #define ADD_VERS 1
 
@@ -56,6 +65,9 @@ extern  bool_t * funcbool_1_svc(estado *, struct svc_req *);
 #define objeto 9
 extern  estado * objeto_1(estado *, CLIENT *);
 extern  estado * objeto_1_svc(estado *, struct svc_req *);
+#define requisitar_vacina 10
+extern  request_vac * requisitar_vacina_1(request_vac *, CLIENT *);
+extern  request_vac * requisitar_vacina_1_svc(request_vac *, struct svc_req *);
 extern int add_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
@@ -86,6 +98,9 @@ extern  bool_t * funcbool_1_svc();
 #define objeto 9
 extern  estado * objeto_1();
 extern  estado * objeto_1_svc();
+#define requisitar_vacina 10
+extern  request_vac * requisitar_vacina_1();
+extern  request_vac * requisitar_vacina_1_svc();
 extern int add_prog_1_freeresult ();
 #endif /* K&R C */
 
@@ -93,9 +108,11 @@ extern int add_prog_1_freeresult ();
 
 #if defined(__STDC__) || defined(__cplusplus)
 extern  bool_t xdr_estado (XDR *, estado*);
+extern  bool_t xdr_request_vac (XDR *, request_vac*);
 
 #else /* K&R C */
 extern bool_t xdr_estado ();
+extern bool_t xdr_request_vac ();
 
 #endif /* K&R C */
 

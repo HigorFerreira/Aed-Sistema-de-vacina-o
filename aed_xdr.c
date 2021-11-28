@@ -84,3 +84,24 @@ xdr_estado (XDR *xdrs, estado *objp)
 		 return FALSE;
 	return TRUE;
 }
+
+bool_t
+xdr_request_vac (XDR *xdrs, request_vac *objp)
+{
+	register int32_t *buf;
+
+	int i;
+	 if (!xdr_vector (xdrs, (char *)objp->estado, 100,
+		sizeof (char), (xdrproc_t) xdr_char))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->id, 100,
+		sizeof (char), (xdrproc_t) xdr_char))
+		 return FALSE;
+	 if (!xdr_char (xdrs, &objp->id_type))
+		 return FALSE;
+	 if (!xdr_char (xdrs, &objp->status))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->qtt_vacinas))
+		 return FALSE;
+	return TRUE;
+}

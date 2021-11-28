@@ -8,6 +8,7 @@
  */
 
 #include "aed.h"
+#include "helper.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -916,6 +917,34 @@ int procura(char *str){
 	}
 	
 	return encontrou;
+}
+
+
+request_vac *requisitar_vacina_1_svc(request_vac *argp, struct svc_req *rqstp){
+	static request_vac result;
+
+	printf("O estado %s esta requititando %d vacina(s)\n", argp->estado, argp->qtt_vacinas);
+
+	int find_res = procura(argp->id);
+
+	sprintf(result.id, "%s", argp->id);
+	result.id_type = argp->id_type;
+
+
+	if(find_res == 9 || find_res == 5){
+		result.status = STATUS_ID_NAO_ENCONTRADO;
+	}
+	else{
+		if(qtdDoses < argp->qtt_vacinas)
+			result.status = STATUS_NAO_HA_VACINAS;
+		else{
+			qtdDoses -= argp->qtt_vacinas;
+			result.qtt_vacinas = argp->qtt_vacinas;
+			result.status = STATUS_OK;
+		}
+	}
+
+	return &result;
 }
 
 char *

@@ -29,6 +29,7 @@ add_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		estado func6_1_arg;
 		estado funcbool_1_arg;
 		estado objeto_1_arg;
+		request_vac requisitar_vacina_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -91,6 +92,12 @@ add_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		_xdr_argument = (xdrproc_t) xdr_estado;
 		_xdr_result = (xdrproc_t) xdr_estado;
 		local = (char *(*)(char *, struct svc_req *)) objeto_1_svc;
+		break;
+
+	case requisitar_vacina:
+		_xdr_argument = (xdrproc_t) xdr_request_vac;
+		_xdr_result = (xdrproc_t) xdr_request_vac;
+		local = (char *(*)(char *, struct svc_req *)) requisitar_vacina_1_svc;
 		break;
 
 	default:

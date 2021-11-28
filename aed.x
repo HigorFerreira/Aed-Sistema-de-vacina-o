@@ -9,6 +9,7 @@ struct estado{
 };
 
 struct request_vac {
+	char estado[100];
 	char id[100];
 	char id_type;
 	char status;
