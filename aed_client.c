@@ -1,8 +1,8 @@
 /*
  Integrantes do grupo: 
  	Higor Ferreira Alves Santos
- 	João Vitor Arantes Viana
-	Isaías
+ 	Joï¿½o Vitor Arantes Viana
+	Isaï¿½as
 	Pedro
 	Ruan Carlos					
  */
@@ -135,9 +135,9 @@ main (int argc, char *argv[])
 	if (result_9 == (estado *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	auxQtdDoses = result_9->aux3;//verificando quantidade de doses disponíveis no estado	
+	auxQtdDoses = result_9->aux3;//verificando quantidade de doses disponï¿½veis no estado	
 
-	switch(auxQtdClientes){//exibir a cidade que está agendando a vacina
+	switch(auxQtdClientes){//exibir a cidade que estï¿½ agendando a vacina
 		
 		case 1:
 		printf("*****BEM VINDO AO AGENDAMENTO DE VACINAS DA CIDADE DE BOA VISTA*****\n");		
@@ -216,7 +216,7 @@ main (int argc, char *argv[])
 		
 	}
 		
-	int controle = 1; //variavel utilizada para controlar quando sair do while, ou seja, se deseja agendar outra vacinação
+	int controle = 1; //variavel utilizada para controlar quando sair do while, ou seja, se deseja agendar outra vacinaï¿½ï¿½o
 	while(controle == 1){
 		char numCartao[15];
 		printf("Insira o cartao sus ou o cpf (SOMENTE NUMEROS): ");
@@ -238,7 +238,7 @@ main (int argc, char *argv[])
     	sprintf(func2_1_arg.auxPalavra, "%s", numCartao); //copiar a variavel da direita para dentro da variavel da esquerda (copiar para variavel da struct)
 		result_2 = func2_1(&func2_1_arg, clnt);
 		if (result_2 == (char *) NULL) {
-		clnt_perror (clnt, "call failed");
+			clnt_perror (clnt, "call failed");
 		}
 		else{
 			//printf("numero: %s\n",func2_1_arg.cidadeChar);
@@ -256,15 +256,15 @@ main (int argc, char *argv[])
 					printf("Segunda dose agendada com sucesso!!! Compareca ao local de vacinacao no dia 10/01/2022.\n");
 				}
 				else{
-					if(auxResultado==2){//se já tomou as duas doses da vacina
+					if(auxResultado==2){//se jï¿½ tomou as duas doses da vacina
 						printf("ERRO NO AGENDAMENTO!!! As duas doses da vacina ja foram tomadas.\n");
 					}
 					else{
-						if(auxResultado==3){//se já está agendado
+						if(auxResultado==3){//se jï¿½ estï¿½ agendado
 							printf("ERRO NO AGENDAMENTO!!! Voce ja agendou sua primeira dose.\n");
 						}
 						else{
-							if(auxResultado==4){//se já está agendado
+							if(auxResultado==4){//se jï¿½ estï¿½ agendado
 								printf("ERRO NO AGENDAMENTO!!! Voce ja agendou sua segunda dose.\n");
 							}
 							else{

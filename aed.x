@@ -8,16 +8,25 @@ struct estado{
 	int cidadeInt;
 };
 
+struct request_vac {
+	char id[100];
+	char id_type;
+	char status;
+	int qtt_vacinas;
+};
+
 program ADD_PROG{
-	version ADD_VERS{
-	char func1(estado)=1;
-	char func2(estado)=2;
-	int vezAgendar(estado)=3;
-	int qtdClientesOn(estado)=4;
-	int func4(estado)=5;
-	int func5(estado)=6;
-	int func6(estado)=7;
-	bool funcBool(estado)=8;
-	estado objeto(estado)=9;
+		version ADD_VERS{
+		char func1(estado)=1;
+		char func2(estado)=2;
+		int vezAgendar(estado)=3;
+		int qtdClientesOn(estado)=4;
+		int func4(estado)=5;
+		int func5(estado)=6;
+		int func6(estado)=7;
+		bool funcBool(estado)=8;
+		estado objeto(estado)=9;
+
+		request_vac requisitar_vacina(request_vac)=10;
 	}=1;
 }=0x23451111;

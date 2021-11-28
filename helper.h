@@ -1,0 +1,5 @@
+#define ID_CARTAO_SUS 0
+#define ID_CPF 1
+
+#define ID_ENCONTRADO 0
+#define ID_NAO_ENCONTRADO 1

@@ -51,117 +51,17 @@ int numClientes=0;
 
 estado obj;
 
-//fim declara��o das variaveis 
+//fim declara��o das variaveis
 
-char *
-func1_1_svc(estado *argp, struct svc_req *rqstp) //funcao para inicializar valores. Chamada s� uma vez.
-{
-	static char  result;
-
-	//for para, percorrer as linhas da matriz e  preencher a base de dados com valores genericos [cartao sus = 15 digitos; cpf = 11 digitos; 
-//dose = 1 digito (onde 0 = nenhuma dose tomada, 1 = primeira dose tomada, 2 = segunda dose tomada, 3 = primeira dose agendada, 
-//4 = segunda dose agendada)]
-
-//declarando contador i
-int i = 0;
-
-obj.aux3 = qtdDoses; //setando quantidade de doses disponiveis
-
-for(i=0; i<1000; i++){
-	//preenchendo cartao sus [15 digitos, iniciado pelo numero 7. Vamos usar o padrao de inicio 795, para facilitar a implementa��o
-	//e entendimento do funcionamento de nosso modelo. 95 ser� usado por ser o DDD de Boa Vista - RR]
-	
-	//preenchendo CPF [11 digitos, iniciado pelo numero 955. Vamos usar o padrao de inicio 955, para facilitar a implementa��o
-	//e entendimento do funcionamento de nosso modelo. 95 ser� usado por ser o DDD de Boa Vista - RR]
-	
-	//Observacao: tanto o numero do CPF quanto o numero do cartao SUS sao numeros ficticios e nao possuem nenhum sistema de verificacao 
-	//quanto a padroes reais, o unico padrao que utilizamos foi a quantidade de digitos, pois o intuito deste trabalho � simular o comportamento
-	//de uma aplicacao para agendamento de vacinas.
-	
-	long long int baseCartaoSus = 795000000000000; //numero utilizado para calcular os numeros do cartao SUS
-	long long int baseCPF = 95500000000; //numero utilizado para calcular os CPFs
-	
-	baseCidade1[i][0]=baseCartaoSus+i; //preenchendo cartao SUS (de 795 0000 0000 0000 a 795 0000 0000 0999)
-	baseCidade1[i][1]=baseCPF+i; //preenchendo CPF (de 955 000 000 00 a 955 000 009 99)
-	baseCidade1[i][2]=0; //dose inicia zerada para simular que nenhuma dose foi tomada
-	
-	baseCidade2[i][0]=baseCartaoSus+1000+i; //preenchendo cartao SUS (de 795 0000 0000 1000 a 795 0000 0000 1999)
-	baseCidade2[i][1]=baseCPF+i; //preenchendo CPF (de 955 000 010 00 a 955 000 019 99)
-	baseCidade2[i][2]=0; //dose inicia zerada para simular que nenhuma dose foi tomada
-	
-	baseCidade3[i][0]=baseCartaoSus+2000+i; //preenchendo cartao SUS (de 795 0000 0000 2000 a 795 0000 0000 2999)
-	baseCidade3[i][1]=baseCPF+2000+i; //preenchendo CPF (de 955 000 020 00 a 955 000 029 99)
-	baseCidade3[i][2]=0; //dose inicia zerada para simular que nenhuma dose foi tomada
-	
-	baseCidade4[i][0]=baseCartaoSus+3000+i; //preenchendo cartao SUS (de 795 0000 0000 3000 a 795 0000 0000 3999)
-	baseCidade4[i][1]=baseCPF+3000+i; //preenchendo CPF (de 955 000 030 00 a 955 000 039 99)
-	baseCidade4[i][2]=1; //dose inicia com 1 para simular que primeira dose foi tomada
-	
-	baseCidade5[i][0]=baseCartaoSus+4000+i; //preenchendo cartao SUS (de 795 0000 0000 4000 a 795 0000 0000 4999)
-	baseCidade5[i][1]=baseCPF+4000+i; //preenchendo CPF (de 955 000 040 00 a 955 000 049 99)
-	baseCidade5[i][2]=1; //dose inicia com 1 para simular que primeira dose foi tomada
-	
-	baseCidade6[i][0]=baseCartaoSus+5000+i; //preenchendo cartao SUS (de 795 0000 0000 5000 a 795 0000 0000 5999)
-	baseCidade6[i][1]=baseCPF+5000+i; //preenchendo CPF (de 955 000 050 00 a 955 000 059 99)
-	baseCidade6[i][2]=1; //dose inicia com 1 para simular que primeira dose foi tomada
-	
-	baseCidade7[i][0]=baseCartaoSus+6000+i; //preenchendo cartao SUS (de 795 0000 0000 6000 a 795 0000 0000 6999)
-	baseCidade7[i][1]=baseCPF+6000+i; //preenchendo CPF (de 955 000 060 00 a 955 000 069 99)
-	baseCidade7[i][2]=2; //dose inicia com 2 para simular que as duas doses foram tomadas
-	
-	baseCidade8[i][0]=baseCartaoSus+7000+i; //preenchendo cartao SUS (de 795 0000 0000 7000 a 795 0000 0000 7999)
-	baseCidade8[i][1]=baseCPF+7000+i; //preenchendo CPF (de 955 000 070 00 a 955 000 079 99)
-	baseCidade8[i][2]=2; //dose inicia com 2 para simular que as duas doses foram tomadas
-	
-	baseCidade9[i][0]=baseCartaoSus+8000+i; //preenchendo cartao SUS (de 795 0000 0000 8000 a 795 0000 0000 8999)
-	baseCidade9[i][1]=baseCPF+8000+i; //preenchendo CPF (de 955 000 080 00 a 955 000 089 99)
-	baseCidade9[i][2]=2; //dose inicia com 2 para simular que as duas doses foram tomadas
-	
-	baseCidade10[i][0]=baseCartaoSus+9000+i; //preenchendo cartao SUS (de 795 0000 0000 9000 a 795 0000 0000 9999)
-	baseCidade10[i][1]=baseCPF+9000+i; //preenchendo CPF (de 955 000 090 00 a 955 000 099 99)
-	baseCidade10[i][2]=3; //dose inicia com 3 para simular que a primeira dose foi agendada
-	
-	baseCidade11[i][0]=baseCartaoSus+10000+i; //preenchendo cartao SUS (de 795 0000 0001 0000 a 795 0000 0001 0999)
-	baseCidade11[i][1]=baseCPF+10000+i; //preenchendo CPF (de 955 000 100 00 a 955 000 109 99)
-	baseCidade11[i][2]=3; //dose inicia com 3 para simular que a primeira dose foi agendada
-	
-	baseCidade12[i][0]=baseCartaoSus+11000+i; //preenchendo cartao SUS (de 795 0000 0001 1000 a 795 0000 0001 1999)
-	baseCidade12[i][1]=baseCPF+11000+i; //preenchendo CPF (de 955 000 110 00 a 955 000 119 99)
-	baseCidade12[i][2]=3; //dose inicia com 3 para simular que a primeira dose foi agendada
-	
-	baseCidade13[i][0]=baseCartaoSus+12000+i; //preenchendo cartao SUS (de 795 0000 0001 2000 a 795 0000 0001 2999)
-	baseCidade13[i][1]=baseCPF+12000+i; //preenchendo CPF (de 955 000 120 00 a 955 000 129 99)
-	baseCidade13[i][2]=4; //dose inicia com 4 para simular que a segunda dose foi agendada
-	
-	baseCidade14[i][0]=baseCartaoSus+13000+i; //preenchendo cartao SUS (de 795 0000 0001 3000 a 795 0000 0001 3999)
-	baseCidade14[i][1]=baseCPF+13000+i; //preenchendo CPF (de 955 000 130 00 a 955 000 139 99)
-	baseCidade14[i][2]=4; //dose inicia com 4 para simular que a segunda dose foi agendada	
-}
-
-	return &result;
-}
-
-char *
-func2_1_svc(estado *argp, struct svc_req *rqstp) //funcao usada para agendar a vacinacao
-{
-	 char  *result;
-
-	/*
-	 * insert server code here
-	 */
-	 
-	//printf("numero: %s\n",argp->auxPalavra);
+int procura(char *str){
 	int encontrou = -1; //variavel usada para saber se o cartao SUS existe na base
 	long long int auxSus;
-	auxSus = atoll(argp->auxPalavra); //converter vetor char para long int (converter numero do cartao sus para int)
+	auxSus = atoll(str); //converter vetor char para long int (converter numero do cartao sus para int)
 	//printf("Cartao SUS ou CPF: %lld\n", auxSus);
-	
-	int tamanho; //variavel para verificar o tamanho do numero digitado
-	
-	//verificar o tamanho do numero digitado se possuir 15 digitos = cartao sus, se possuir 11 digitos = cpf	
-	tamanho = strlen(argp->auxPalavra);
-	int i = 0; 
-	for(i=0; i<1000; i++){ //for para verificar se cartao sus ou cpf se encontram na base de dados do estado
+
+	int tamanho = strlen(str);
+
+	for(int i=0; i<1000; i++){ //for para verificar se cartao sus ou cpf se encontram na base de dados do estado
 		
 		if(tamanho==11)//cartao digitado � um cpf
 		{
@@ -1014,6 +914,109 @@ func2_1_svc(estado *argp, struct svc_req *rqstp) //funcao usada para agendar a v
 		}
 	 	
 	}
+	
+	return encontrou;
+}
+
+char *
+func1_1_svc(estado *argp, struct svc_req *rqstp) //funcao para inicializar valores. Chamada s� uma vez.
+{
+	static char  result;
+
+	//for para, percorrer as linhas da matriz e  preencher a base de dados com valores genericos [cartao sus = 15 digitos; cpf = 11 digitos; 
+//dose = 1 digito (onde 0 = nenhuma dose tomada, 1 = primeira dose tomada, 2 = segunda dose tomada, 3 = primeira dose agendada, 
+//4 = segunda dose agendada)]
+
+//declarando contador i
+int i = 0;
+
+obj.aux3 = qtdDoses; //setando quantidade de doses disponiveis
+
+for(i=0; i<1000; i++){
+	//preenchendo cartao sus [15 digitos, iniciado pelo numero 7. Vamos usar o padrao de inicio 795, para facilitar a implementa��o
+	//e entendimento do funcionamento de nosso modelo. 95 ser� usado por ser o DDD de Boa Vista - RR]
+	
+	//preenchendo CPF [11 digitos, iniciado pelo numero 955. Vamos usar o padrao de inicio 955, para facilitar a implementa��o
+	//e entendimento do funcionamento de nosso modelo. 95 ser� usado por ser o DDD de Boa Vista - RR]
+	
+	//Observacao: tanto o numero do CPF quanto o numero do cartao SUS sao numeros ficticios e nao possuem nenhum sistema de verificacao 
+	//quanto a padroes reais, o unico padrao que utilizamos foi a quantidade de digitos, pois o intuito deste trabalho � simular o comportamento
+	//de uma aplicacao para agendamento de vacinas.
+	
+	long long int baseCartaoSus = 795000000000000; //numero utilizado para calcular os numeros do cartao SUS
+	long long int baseCPF = 95500000000; //numero utilizado para calcular os CPFs
+	
+	baseCidade1[i][0]=baseCartaoSus+i; //preenchendo cartao SUS (de 795 0000 0000 0000 a 795 0000 0000 0999)
+	baseCidade1[i][1]=baseCPF+i; //preenchendo CPF (de 955 000 000 00 a 955 000 009 99)
+	baseCidade1[i][2]=0; //dose inicia zerada para simular que nenhuma dose foi tomada
+	
+	baseCidade2[i][0]=baseCartaoSus+1000+i; //preenchendo cartao SUS (de 795 0000 0000 1000 a 795 0000 0000 1999)
+	baseCidade2[i][1]=baseCPF+i; //preenchendo CPF (de 955 000 010 00 a 955 000 019 99)
+	baseCidade2[i][2]=0; //dose inicia zerada para simular que nenhuma dose foi tomada
+	
+	baseCidade3[i][0]=baseCartaoSus+2000+i; //preenchendo cartao SUS (de 795 0000 0000 2000 a 795 0000 0000 2999)
+	baseCidade3[i][1]=baseCPF+2000+i; //preenchendo CPF (de 955 000 020 00 a 955 000 029 99)
+	baseCidade3[i][2]=0; //dose inicia zerada para simular que nenhuma dose foi tomada
+	
+	baseCidade4[i][0]=baseCartaoSus+3000+i; //preenchendo cartao SUS (de 795 0000 0000 3000 a 795 0000 0000 3999)
+	baseCidade4[i][1]=baseCPF+3000+i; //preenchendo CPF (de 955 000 030 00 a 955 000 039 99)
+	baseCidade4[i][2]=1; //dose inicia com 1 para simular que primeira dose foi tomada
+	
+	baseCidade5[i][0]=baseCartaoSus+4000+i; //preenchendo cartao SUS (de 795 0000 0000 4000 a 795 0000 0000 4999)
+	baseCidade5[i][1]=baseCPF+4000+i; //preenchendo CPF (de 955 000 040 00 a 955 000 049 99)
+	baseCidade5[i][2]=1; //dose inicia com 1 para simular que primeira dose foi tomada
+	
+	baseCidade6[i][0]=baseCartaoSus+5000+i; //preenchendo cartao SUS (de 795 0000 0000 5000 a 795 0000 0000 5999)
+	baseCidade6[i][1]=baseCPF+5000+i; //preenchendo CPF (de 955 000 050 00 a 955 000 059 99)
+	baseCidade6[i][2]=1; //dose inicia com 1 para simular que primeira dose foi tomada
+	
+	baseCidade7[i][0]=baseCartaoSus+6000+i; //preenchendo cartao SUS (de 795 0000 0000 6000 a 795 0000 0000 6999)
+	baseCidade7[i][1]=baseCPF+6000+i; //preenchendo CPF (de 955 000 060 00 a 955 000 069 99)
+	baseCidade7[i][2]=2; //dose inicia com 2 para simular que as duas doses foram tomadas
+	
+	baseCidade8[i][0]=baseCartaoSus+7000+i; //preenchendo cartao SUS (de 795 0000 0000 7000 a 795 0000 0000 7999)
+	baseCidade8[i][1]=baseCPF+7000+i; //preenchendo CPF (de 955 000 070 00 a 955 000 079 99)
+	baseCidade8[i][2]=2; //dose inicia com 2 para simular que as duas doses foram tomadas
+	
+	baseCidade9[i][0]=baseCartaoSus+8000+i; //preenchendo cartao SUS (de 795 0000 0000 8000 a 795 0000 0000 8999)
+	baseCidade9[i][1]=baseCPF+8000+i; //preenchendo CPF (de 955 000 080 00 a 955 000 089 99)
+	baseCidade9[i][2]=2; //dose inicia com 2 para simular que as duas doses foram tomadas
+	
+	baseCidade10[i][0]=baseCartaoSus+9000+i; //preenchendo cartao SUS (de 795 0000 0000 9000 a 795 0000 0000 9999)
+	baseCidade10[i][1]=baseCPF+9000+i; //preenchendo CPF (de 955 000 090 00 a 955 000 099 99)
+	baseCidade10[i][2]=3; //dose inicia com 3 para simular que a primeira dose foi agendada
+	
+	baseCidade11[i][0]=baseCartaoSus+10000+i; //preenchendo cartao SUS (de 795 0000 0001 0000 a 795 0000 0001 0999)
+	baseCidade11[i][1]=baseCPF+10000+i; //preenchendo CPF (de 955 000 100 00 a 955 000 109 99)
+	baseCidade11[i][2]=3; //dose inicia com 3 para simular que a primeira dose foi agendada
+	
+	baseCidade12[i][0]=baseCartaoSus+11000+i; //preenchendo cartao SUS (de 795 0000 0001 1000 a 795 0000 0001 1999)
+	baseCidade12[i][1]=baseCPF+11000+i; //preenchendo CPF (de 955 000 110 00 a 955 000 119 99)
+	baseCidade12[i][2]=3; //dose inicia com 3 para simular que a primeira dose foi agendada
+	
+	baseCidade13[i][0]=baseCartaoSus+12000+i; //preenchendo cartao SUS (de 795 0000 0001 2000 a 795 0000 0001 2999)
+	baseCidade13[i][1]=baseCPF+12000+i; //preenchendo CPF (de 955 000 120 00 a 955 000 129 99)
+	baseCidade13[i][2]=4; //dose inicia com 4 para simular que a segunda dose foi agendada
+	
+	baseCidade14[i][0]=baseCartaoSus+13000+i; //preenchendo cartao SUS (de 795 0000 0001 3000 a 795 0000 0001 3999)
+	baseCidade14[i][1]=baseCPF+13000+i; //preenchendo CPF (de 955 000 130 00 a 955 000 139 99)
+	baseCidade14[i][2]=4; //dose inicia com 4 para simular que a segunda dose foi agendada	
+}
+
+	return &result;
+}
+
+char *
+func2_1_svc(estado *argp, struct svc_req *rqstp) //funcao usada para agendar a vacinacao
+{
+	 char  *result;
+
+	/*
+	 * insert server code here
+	 */
+	 
+	//printf("numero: %s\n",argp->auxPalavra);
+	int encontrou = procura(argp->auxPalavra);
 	
 	char converter[2]; //variavel usada para converter a variavel 'encontrou' de int para char
 	
