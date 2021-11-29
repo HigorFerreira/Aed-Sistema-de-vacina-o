@@ -923,14 +923,27 @@ int procura(char *str){
 request_vac *requisitar_vacina_1_svc(request_vac *argp, struct svc_req *rqstp){
 	static request_vac result;
 
-	printf("O estado %s esta requititando %d vacina(s)\n", argp->estado, argp->qtt_vacinas);
+	char str_aux[100];
+
+	sprintf(str_aux, "%s", argp->id_type == ID_TYPE_CARTAO_SUS ? "cartao SUS" : "CPF");
+
+	printf(
+		"O estado %s esta requititando %d vacina(s)\nPara o %s: %s\n",
+		argp->estado,
+		argp->qtt_vacinas,
+		str_aux,
+		argp->id
+	);
+
+	printf("\n\n=============  DEBUG LOGS  ==================\n\n");
 
 	int find_res = procura(argp->id);
 
+	sprintf(result.estado, "%s", argp->estado);
 	sprintf(result.id, "%s", argp->id);
 	result.id_type = argp->id_type;
 
-
+	printf("RESULT FIDING ID: %d\n", find_res);
 	if(find_res == 9 || find_res == 5){
 		result.status = STATUS_ID_NAO_ENCONTRADO;
 	}
