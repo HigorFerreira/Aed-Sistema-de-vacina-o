@@ -1,8 +1,8 @@
 /*
  Integrantes do grupo: 
  	Higor Ferreira Alves Santos
- 	Jo�o Vitor Arantes Viana
-	Isa�as
+ 	Joï¿œo Vitor Arantes Viana
+	Isaï¿œas
 	Pedro
 	Ruan Carlos					
  */
@@ -23,13 +23,13 @@
 #include <arpa/inet.h>
 
 
-//inicio declara��o das variaveis 
+//inicio declaraï¿œï¿œo das variaveis 
 
-long long int qtdDoses = 496936 * 2; //quantidade inicial de doses � igual a popula��o de Roraima * 2 (considerando vacinas de duas doses)
+long long int qtdDoses = 496936 * 2; //quantidade inicial de doses ï¿œ igual a populaï¿œï¿œo de Roraima * 2 (considerando vacinas de duas doses)
 									//quando outro estado contatar nosso servidor e for achado fazer 'qtdDoses--' (remanejamento de vacinas)
 									//quando entrarmos em contato com outro servidor e for achado fazer 'qtdDoses++' (remanejamento de vacinas)
 									
-//Cada cidade possui um base de 1000 contatos para teste, o formato de cada linha da matriz � (cartaoSus, cpf, dose)
+//Cada cidade possui um base de 1000 contatos para teste, o formato de cada linha da matriz ï¿œ (cartaoSus, cpf, dose)
 //Roraima possui 15 cidades
 
 long long int baseCidade1[1000][3];
@@ -49,922 +49,13 @@ long long int baseCidade14[1000][3];
 long long int baseCidade15[1000][3];
 
 int numClientes=0;
+int inicializado = -1;
 
 estado obj;
 
-//fim declara��o das variaveis
+//fim declaraï¿œï¿œo das variaveis
 
-int procura(char *str){
-	int encontrou = -1; //variavel usada para saber se o cartao SUS existe na base
-	long long int auxSus;
-	auxSus = atoll(str); //converter vetor char para long int (converter numero do cartao sus para int)
-	//printf("Cartao SUS ou CPF: %lld\n", auxSus);
-
-	int tamanho = strlen(str);
-
-	for(int i=0; i<1000; i++){ //for para verificar se cartao sus ou cpf se encontram na base de dados do estado
-		
-		if(tamanho==11)//cartao digitado � um cpf
-		{
-			 if(baseCidade1[i][1]==auxSus){//verificar se cartao existe na base
-			 	
-			 	if(baseCidade1[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade1[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade1[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade1[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade1[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade1[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else //se agendou segunda dose, n�o agendar nada
-							 {							 	
-							 	encontrou = 4;							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-		  	 }
-			 if(baseCidade2[i][1]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade2[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade2[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade2[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade2[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade2[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade2[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else //se agendou segunda dose, n�o agendar nada
-							 {							 	
-							 	encontrou = 4;							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade3[i][1]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade3[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade3[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade3[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade3[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade3[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade3[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada						
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade4[i][1]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade4[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade4[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade4[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade4[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade4[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade4[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade5[i][1]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade5[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade5[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade5[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade5[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade5[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade5[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade6[i][1]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade6[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade6[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade6[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade6[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade6[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade6[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade7[i][1]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade7[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade7[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade7[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade7[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade7[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade7[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade8[i][1]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade8[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade8[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade8[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade8[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade8[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade8[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade9[i][1]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade9[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade9[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade9[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade9[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade9[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade9[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade10[i][1]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade10[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade10[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade10[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade10[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade10[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade10[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade11[i][1]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade11[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade11[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade11[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade11[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade11[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade11[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade12[i][1]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade12[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade12[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade12[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade12[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade12[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade12[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade13[i][1]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade13[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade13[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade13[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade13[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade13[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade13[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade14[i][1]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade14[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade14[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade14[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade14[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade14[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade14[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }		 	
-		}
-		else
-		{//cartao digitado � um cartao SUS
-			if(baseCidade1[i][0]==auxSus){//verificar se cartao existe na base
-			 	
-			 	if(baseCidade1[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade1[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade1[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade1[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade1[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade1[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else //se agendou segunda dose, n�o agendar nada
-							 {							 	
-							 	encontrou = 4;							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-		  	 }
-			 if(baseCidade2[i][0]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade2[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade2[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade2[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade2[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade2[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade2[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else //se agendou segunda dose, n�o agendar nada
-							 {							 	
-							 	encontrou = 4;							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade3[i][0]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade3[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade3[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade3[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade3[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade3[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade3[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada						
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade4[i][0]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade4[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade4[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade4[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade4[i][2]=4; //segunda dose
-			 			encontrou = 1;
-			 			printf("aqui1");
-					 }
-					 else
-					 {
-					 	if(baseCidade4[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade4[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade5[i][0]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade5[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade5[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade5[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade5[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade5[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade5[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade6[i][0]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade6[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade6[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade6[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade6[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade6[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade6[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade7[i][0]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade7[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade7[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade7[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade7[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade7[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade7[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade8[i][0]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade8[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade8[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade8[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade8[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade8[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade8[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade9[i][0]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade9[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade9[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade9[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade9[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade9[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade9[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade10[i][0]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade10[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade10[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade10[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade10[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade10[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade10[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade11[i][0]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade11[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade11[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade11[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade11[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade11[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade11[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade12[i][0]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade12[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade12[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade12[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade12[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade12[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade12[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade13[i][0]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade13[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade13[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade13[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade13[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade13[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade13[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }
-			 if(baseCidade14[i][0]==auxSus){//verificar se cartao existe na base
-		 		if(baseCidade14[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
-			 		baseCidade14[i][2]=3; //agendar primeira dose
-			 		encontrou = 0;
-				 }
-				 else
-				 {
-				 	if(baseCidade14[i][2]==1){//se tomou primeira dose, agendar segunda dose
-				 		baseCidade14[i][2]=4; //segunda dose
-			 			encontrou = 1;
-					 }
-					 else
-					 {
-					 	if(baseCidade14[i][2]==2){//se tomou segunda dose, n�o agendar nada
-					 		encontrou = 2;
-						 }
-						 else{
-						 	if(baseCidade14[i][2]==3){//se agendou primeira dose, n�o agendar nada
-						 		encontrou = 3;
-							 }
-							 else
-							 {							 	
-							 	encontrou = 4;	//se agendou segunda dose, n�o agendar nada							
-							 }
-						 }
-					 }
-				 }
-	 			
-	 			break;
-			 }		 	
-		}
-	 	
-	}
-	
-	return encontrou;
-}
-
-
-request_vac *requisitar_vacina_1_svc(request_vac *argp, struct svc_req *rqstp){
-	static request_vac result;
-
-	char str_aux[100];
-
-	sprintf(str_aux, "%s", argp->id_type == ID_TYPE_CARTAO_SUS ? "cartao SUS" : "CPF");
-
-	printf(
-		"O estado %s esta requititando %d vacina(s)\nPara o %s: %s\n",
-		argp->estado,
-		argp->qtt_vacinas,
-		str_aux,
-		argp->id
-	);
-
-	printf("\n\n=============  DEBUG LOGS  ==================\n\n");
-
-	int find_res = procura(argp->id);
-
-	sprintf(result.estado, "%s", argp->estado);
-	sprintf(result.id, "%s", argp->id);
-	result.id_type = argp->id_type;
-
-	printf("RESULT FIDING ID: %d\n", find_res);
-	if(find_res == 9 || find_res == 5){
-		result.status = STATUS_ID_NAO_ENCONTRADO;
-	}
-	else{
-		if(qtdDoses < argp->qtt_vacinas)
-			result.status = STATUS_NAO_HA_VACINAS;
-		else{
-			qtdDoses -= argp->qtt_vacinas;
-			result.qtt_vacinas = argp->qtt_vacinas;
-			result.status = STATUS_OK;
-		}
-	}
-
-	return &result;
-}
-
-char *
-func1_1_svc(estado *argp, struct svc_req *rqstp) //funcao para inicializar valores. Chamada s� uma vez.
-{
-	static char  result;
-
+void iniciaValores(void){//funcao para inicializar valores
 	//for para, percorrer as linhas da matriz e  preencher a base de dados com valores genericos [cartao sus = 15 digitos; cpf = 11 digitos; 
 //dose = 1 digito (onde 0 = nenhuma dose tomada, 1 = primeira dose tomada, 2 = segunda dose tomada, 3 = primeira dose agendada, 
 //4 = segunda dose agendada)]
@@ -975,14 +66,14 @@ int i = 0;
 obj.aux3 = qtdDoses; //setando quantidade de doses disponiveis
 
 for(i=0; i<1000; i++){
-	//preenchendo cartao sus [15 digitos, iniciado pelo numero 7. Vamos usar o padrao de inicio 795, para facilitar a implementa��o
-	//e entendimento do funcionamento de nosso modelo. 95 ser� usado por ser o DDD de Boa Vista - RR]
+	//preenchendo cartao sus [15 digitos, iniciado pelo numero 7. Vamos usar o padrao de inicio 795, para facilitar a implementaï¿œï¿œo
+	//e entendimento do funcionamento de nosso modelo. 95 serï¿œ usado por ser o DDD de Boa Vista - RR]
 	
-	//preenchendo CPF [11 digitos, iniciado pelo numero 955. Vamos usar o padrao de inicio 955, para facilitar a implementa��o
-	//e entendimento do funcionamento de nosso modelo. 95 ser� usado por ser o DDD de Boa Vista - RR]
+	//preenchendo CPF [11 digitos, iniciado pelo numero 955. Vamos usar o padrao de inicio 955, para facilitar a implementaï¿œï¿œo
+	//e entendimento do funcionamento de nosso modelo. 95 serï¿œ usado por ser o DDD de Boa Vista - RR]
 	
 	//Observacao: tanto o numero do CPF quanto o numero do cartao SUS sao numeros ficticios e nao possuem nenhum sistema de verificacao 
-	//quanto a padroes reais, o unico padrao que utilizamos foi a quantidade de digitos, pois o intuito deste trabalho � simular o comportamento
+	//quanto a padroes reais, o unico padrao que utilizamos foi a quantidade de digitos, pois o intuito deste trabalho ï¿œ simular o comportamento
 	//de uma aplicacao para agendamento de vacinas.
 	
 	long long int baseCartaoSus = 795000000000000; //numero utilizado para calcular os numeros do cartao SUS
@@ -1044,6 +135,928 @@ for(i=0; i<1000; i++){
 	baseCidade14[i][1]=baseCPF+13000+i; //preenchendo CPF (de 955 000 130 00 a 955 000 139 99)
 	baseCidade14[i][2]=4; //dose inicia com 4 para simular que a segunda dose foi agendada	
 }
+inicializado = 1;
+}
+
+
+int procura(char *str){
+	int encontrou = -1; //variavel usada para saber se o cartao SUS existe na base
+	long long int auxSus;
+	auxSus = atoll(str); //converter vetor char para long int (converter numero do cartao sus para int)
+	//printf("Cartao SUS ou CPF: %lld\n", auxSus);
+
+	int tamanho = strlen(str);
+	
+	if(inicializado ==-1){
+		iniciaValores(); //inicializar valores se não tiverem sido iniciados
+	}
+
+	for(int i=0; i<1000; i++){ //for para verificar se cartao sus ou cpf se encontram na base de dados do estado
+		
+		if(tamanho==11)//cartao digitado ï¿œ um cpf
+		{
+			 if(baseCidade1[i][1]==auxSus){//verificar se cartao existe na base
+			 	
+			 	if(baseCidade1[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade1[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade1[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade1[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade1[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade1[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else //se agendou segunda dose, nï¿œo agendar nada
+							 {							 	
+							 	encontrou = 4;							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+		  	 }
+			 if(baseCidade2[i][1]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade2[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade2[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade2[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade2[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade2[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade2[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else //se agendou segunda dose, nï¿œo agendar nada
+							 {							 	
+							 	encontrou = 4;							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade3[i][1]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade3[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade3[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade3[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade3[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade3[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade3[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada						
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade4[i][1]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade4[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade4[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade4[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade4[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade4[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade4[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade5[i][1]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade5[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade5[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade5[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade5[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade5[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade5[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade6[i][1]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade6[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade6[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade6[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade6[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade6[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade6[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade7[i][1]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade7[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade7[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade7[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade7[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade7[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade7[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade8[i][1]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade8[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade8[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade8[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade8[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade8[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade8[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade9[i][1]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade9[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade9[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade9[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade9[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade9[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade9[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade10[i][1]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade10[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade10[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade10[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade10[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade10[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade10[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade11[i][1]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade11[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade11[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade11[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade11[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade11[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade11[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade12[i][1]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade12[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade12[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade12[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade12[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade12[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade12[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade13[i][1]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade13[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade13[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade13[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade13[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade13[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade13[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade14[i][1]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade14[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade14[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade14[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade14[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade14[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade14[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }		 	
+		}
+		else
+		{//cartao digitado ï¿œ um cartao SUS
+			if(baseCidade1[i][0]==auxSus){//verificar se cartao existe na base
+			 	
+			 	if(baseCidade1[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade1[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade1[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade1[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade1[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade1[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else //se agendou segunda dose, nï¿œo agendar nada
+							 {							 	
+							 	encontrou = 4;							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+		  	 }
+			 if(baseCidade2[i][0]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade2[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade2[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade2[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade2[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade2[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade2[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else //se agendou segunda dose, nï¿œo agendar nada
+							 {							 	
+							 	encontrou = 4;							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade3[i][0]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade3[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade3[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade3[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade3[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade3[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade3[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada						
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade4[i][0]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade4[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade4[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade4[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade4[i][2]=4; //segunda dose
+			 			encontrou = 1;
+			 			printf("aqui1");
+					 }
+					 else
+					 {
+					 	if(baseCidade4[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade4[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade5[i][0]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade5[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade5[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade5[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade5[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade5[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade5[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade6[i][0]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade6[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade6[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade6[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade6[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade6[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade6[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade7[i][0]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade7[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade7[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade7[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade7[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade7[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade7[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade8[i][0]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade8[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade8[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade8[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade8[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade8[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade8[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade9[i][0]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade9[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade9[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade9[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade9[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade9[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade9[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade10[i][0]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade10[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade10[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade10[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade10[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade10[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade10[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade11[i][0]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade11[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade11[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade11[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade11[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade11[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade11[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade12[i][0]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade12[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade12[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade12[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade12[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade12[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade12[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade13[i][0]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade13[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade13[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade13[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade13[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade13[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade13[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }
+			 if(baseCidade14[i][0]==auxSus){//verificar se cartao existe na base
+		 		if(baseCidade14[i][2]==0){//verificar se pessoa tomou a primeira dose da vacina
+			 		baseCidade14[i][2]=3; //agendar primeira dose
+			 		encontrou = 0;
+				 }
+				 else
+				 {
+				 	if(baseCidade14[i][2]==1){//se tomou primeira dose, agendar segunda dose
+				 		baseCidade14[i][2]=4; //segunda dose
+			 			encontrou = 1;
+					 }
+					 else
+					 {
+					 	if(baseCidade14[i][2]==2){//se tomou segunda dose, nï¿œo agendar nada
+					 		encontrou = 2;
+						 }
+						 else{
+						 	if(baseCidade14[i][2]==3){//se agendou primeira dose, nï¿œo agendar nada
+						 		encontrou = 3;
+							 }
+							 else
+							 {							 	
+							 	encontrou = 4;	//se agendou segunda dose, nï¿œo agendar nada							
+							 }
+						 }
+					 }
+				 }
+	 			
+	 			break;
+			 }		 	
+		}
+	 	
+	}
+	
+	return encontrou;
+}
+
+
+request_vac *requisitar_vacina_1_svc(request_vac *argp, struct svc_req *rqstp){
+	static request_vac result;
+
+	char str_aux[100];
+
+	sprintf(str_aux, "%s", argp->id_type == ID_TYPE_CARTAO_SUS ? "cartao SUS" : "CPF");
+
+	printf(
+		"O estado %s esta requititando %d vacina(s)\nPara o %s: %s\n",
+		argp->estado,
+		argp->qtt_vacinas,
+		str_aux,
+		argp->id
+	);
+
+	printf("\n\n=============  DEBUG LOGS  ==================\n\n");
+
+	int find_res = procura(argp->id);
+
+	sprintf(result.estado, "%s", argp->estado);
+	sprintf(result.id, "%s", argp->id);
+	result.id_type = argp->id_type;
+
+	printf("RESULT FIDING ID: %d\n", find_res);
+	if(find_res == 9 || find_res == 5){
+		result.status = STATUS_ID_NAO_ENCONTRADO;
+	}
+	else{
+		if(qtdDoses < argp->qtt_vacinas)
+			result.status = STATUS_NAO_HA_VACINAS;
+		else{
+			qtdDoses -= argp->qtt_vacinas;
+			result.qtt_vacinas = argp->qtt_vacinas;
+			result.status = STATUS_OK;
+		}
+	}
+
+	return &result;
+}
+
+char *
+func1_1_svc(estado *argp, struct svc_req *rqstp) //funcao para inicializar valores. Chamada so uma vez.
+{
+	static char  result;
+
+	if(inicializado ==-1){
+		iniciaValores(); //inicializar valores se não tiverem sido iniciados
+	}
 
 	return &result;
 }
@@ -1100,17 +1113,17 @@ func2_1_svc(estado *argp, struct svc_req *rqstp) //funcao usada para agendar a v
 	if(encontrou >= 0 && encontrou <5)
 	{
 		sprintf(argp->cidadeChar, "%s", converter); //copiar a variavel da direita para dentro da variavel da esquerda (copiar para variavel da struct)	
-		qtdDoses--;//se foi agendado, dimiduir quantidade de doses dispon�veis	
+		qtdDoses--;//se foi agendado, dimiduir quantidade de doses disponï¿œveis	
 	}
 	else{//Comunicacao com servidores de outros estados
 		//se nao encontrou o cartao na base do estado, chamar servidor de outro estado e enviar cpf ou cartao SUS
 		
 		//if() se foi encontrado o cartao em outro servidor;	5 = encontrado em outro servidor	  	
 		//sprintf(argp->cidadeChar, "%s", "5"); //copiar a variavel da direita para dentro da variavel da esquerda (copiar para variavel da struct)
-		qtdDoses++; //se cartao for de outro estado � necessario fazer o remanejo de doses para o estado que a pessoa ira vacinar			
+		qtdDoses++; //se cartao for de outro estado ï¿œ necessario fazer o remanejo de doses para o estado que a pessoa ira vacinar			
 		//else se nao foi encontrado o cartao em outro servidor
 		sprintf(argp->cidadeChar, "%s", "9"); //copiar a variavel da direita para dentro da variavel da esquerda (copiar para variavel da struct)
-											 //	9 = n�o encontrado em outro servidor
+											 //	9 = nï¿œo encontrado em outro servidor
 	}
 
 	result = argp->cidadeChar;//retornando a quantidade de doses tomadas

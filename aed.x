@@ -12,8 +12,8 @@ struct request_vac {
 	char estado[100];
 	char id[100];
 	char id_type;
-	char status;
 	int qtt_vacinas;
+	char status;
 };
 
 program ADD_PROG{

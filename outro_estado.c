@@ -15,12 +15,12 @@
 
 int main (int argc, char **argv){
 
-	char *host = argv[0];
-
 	if(argc < 2){
 		fprintf(stderr, "Error: you have to pass host parameter\n");
 		exit(1);
 	}
+
+	char *host = argv[1];
 	
 	//Inicializando cliente
     CLIENT *clnt;
@@ -36,7 +36,7 @@ int main (int argc, char **argv){
 	request_vac requisicao;
 
 	sprintf(requisicao.estado, "GOIAS");
-	sprintf(requisicao.id, "795000000000000");
+	sprintf(requisicao.id, "000000000000000");
 	requisicao.id_type = ID_TYPE_CARTAO_SUS;
 	requisicao.qtt_vacinas = 2;
 
@@ -54,7 +54,7 @@ int main (int argc, char **argv){
 	else{
 		switch(resposta->status){
 			case STATUS_BAD_REQUEST:
-				printf("Informacoes nao preenchidas corretamente\n");
+				printf("Informacoes nao preenchidas corretamente");
 				break;
 			case STATUS_ID_NAO_ENCONTRADO:
 				resposta->id_type == ID_TYPE_CARTAO_SUS ?
@@ -62,12 +62,14 @@ int main (int argc, char **argv){
 					printf("CPF nao encontrado");
 				break;
 			case STATUS_NAO_HA_VACINAS:
-				printf("Nao ha vacinas disponiveis\n");
+				printf("Nao ha vacinas disponiveis");
 				break;
 			
 			default:
 				printf("Erro desconhecido e aleatorio");
 		}
 	}
+
+	printf("\n");
 }
 
