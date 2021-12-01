@@ -29,8 +29,9 @@ struct request_vac {
 	char estado[100];
 	char id[100];
 	char id_type;
-	char status;
 	int qtt_vacinas;
+	char status;
+	int dose;
 };
 typedef struct request_vac request_vac;
 
@@ -68,6 +69,9 @@ extern  estado * objeto_1_svc(estado *, struct svc_req *);
 #define requisitar_vacina 10
 extern  request_vac * requisitar_vacina_1(request_vac *, CLIENT *);
 extern  request_vac * requisitar_vacina_1_svc(request_vac *, struct svc_req *);
+#define sumQttVac 20
+extern  void * sumqttvac_1(int *, CLIENT *);
+extern  void * sumqttvac_1_svc(int *, struct svc_req *);
 extern int add_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
@@ -101,6 +105,9 @@ extern  estado * objeto_1_svc();
 #define requisitar_vacina 10
 extern  request_vac * requisitar_vacina_1();
 extern  request_vac * requisitar_vacina_1_svc();
+#define sumQttVac 20
+extern  void * sumqttvac_1();
+extern  void * sumqttvac_1_svc();
 extern int add_prog_1_freeresult ();
 #endif /* K&R C */
 

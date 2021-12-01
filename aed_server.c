@@ -680,7 +680,7 @@ int procura(char *str){
 				 	if(baseCidade4[i][2]==1){//se tomou primeira dose, agendar segunda dose
 				 		baseCidade4[i][2]=4; //segunda dose
 			 			encontrou = 1;
-			 			printf("aqui1");
+			 			// printf("aqui1");
 					 }
 					 else
 					 {
@@ -1004,6 +1004,8 @@ int procura(char *str){
 		}
 	 	
 	}
+
+	printf("Resultado de procura: %d\n", encontrou);
 	
 	return encontrou;
 }
@@ -1033,8 +1035,11 @@ request_vac *requisitar_vacina_1_svc(request_vac *argp, struct svc_req *rqstp){
 	result.id_type = argp->id_type;
 
 	printf("RESULT FIDING ID: %d\n", find_res);
-	if(find_res == 9 || find_res == 5){
+	if(find_res == 9 || find_res == 5 || find_res == -1){
 		result.status = STATUS_ID_NAO_ENCONTRADO;
+	}
+	else if(find_res == 2 || find_res == 3 || find_res == 4){
+		result.status = STATUS_INTERNAL_ERROR;
 	}
 	else{
 		if(qtdDoses < argp->qtt_vacinas)
@@ -1043,6 +1048,11 @@ request_vac *requisitar_vacina_1_svc(request_vac *argp, struct svc_req *rqstp){
 			qtdDoses -= argp->qtt_vacinas;
 			result.qtt_vacinas = argp->qtt_vacinas;
 			result.status = STATUS_OK;
+
+			if(find_res == 0)
+				result.status = 1;
+			if(find_res == 1)
+				result.status = 2;
 		}
 	}
 

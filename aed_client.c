@@ -8,6 +8,7 @@
  */
 
 #include "aed.h"
+#include "helper.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -68,6 +69,59 @@ add_prog_1(char *host)
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */
 //}
+
+void findin_another_server(char numCartao[], int tamanhoNum){
+	CLIENT *external_server;
+	for (size_t i = 0; i < QTT_SERVERS; i++){
+		printf("Buscando no server: %s\n", estados_addrs[i]);
+		external_server = clnt_create(estados_addrs[i], ADD_PROG, ADD_VERS, "udp");
+		if(external_server == NULL){
+			printf("Erro ao buscar no servidor %s", estados_addrs[i]);
+			clnt_pcreateerror(estados_addrs[i]);
+			printf("\n\n");
+			continue;
+		}
+
+		request_vac requisicao;
+
+		sprintf(requisicao.estado, "RORAIMA");
+		sprintf(requisicao.id, "%s", numCartao);
+		requisicao.id_type = tamanhoNum == 11 ? ID_TYPE_CPF : ID_TYPE_CARTAO_SUS;
+		requisicao.qtt_vacinas = 1;
+
+		request_vac *resposta = requisitar_vacina_1(&requisicao, external_server);
+
+		// Handling response
+		if(resposta->status == STATUS_OK){
+			if(resposta->dose == 1)
+				printf("Primeira dose agendada com sucesso!!! Compareca ao local de vacinacao no dia 10/01/2022.");
+			else if(resposta->dose == 2)
+				printf("Segunda dose agendada com sucesso!!! Compareca ao local de vacinacao no dia 10/01/2022.");
+			else
+				printf("Erro na resposta do servidor %s", estados_addrs[i]);
+		}
+		else{
+			switch(resposta->status){
+				case STATUS_BAD_REQUEST:
+					printf("Informacoes nao preenchidas corretamente");
+					break;
+				case STATUS_ID_NAO_ENCONTRADO:
+					resposta->id_type == ID_TYPE_CARTAO_SUS ?
+						printf("Cartao SUS nao encontrado") :
+						printf("CPF nao encontrado");
+					break;
+				case STATUS_NAO_HA_VACINAS:
+					printf("Nao ha vacinas disponiveis");
+					break;
+				
+				default:
+					printf("Erro desconhecido e aleatorio");
+			}
+		}
+
+		printf("\n\n");		
+	}
+}
 
 
 int
@@ -248,43 +302,33 @@ main (int argc, char *argv[])
 			auxResultado = atoll(result_2); //converter vetor char para long int (converter numero do cartao sus para int)
 			//printf("Result: %s.\n", result_2);
 			//verificar se ja foi vacinado
-			if(auxResultado==5){//se cartao pertence a outro estado
-				printf("Vacinacao agendada com sucesso!!! Compareca ao local de vacinacao no dia 10/01/2022.\n");	
-			}
-			else{
-				if(auxResultado==1){//se tomou uma dose da vacina
+
+
+			switch(auxResultado)
+			{
+				case 0:
+					printf("Primeira dose agendada com sucesso!!! Compareca ao local de vacinacao no dia 10/01/2022.\n");
+					break;
+				case 1:
 					printf("Segunda dose agendada com sucesso!!! Compareca ao local de vacinacao no dia 10/01/2022.\n");
-				}
-				else{
-					if(auxResultado==2){//se j� tomou as duas doses da vacina
-						printf("ERRO NO AGENDAMENTO!!! As duas doses da vacina ja foram tomadas.\n");
-					}
-					else{
-						if(auxResultado==3){//se j� est� agendado
-							printf("ERRO NO AGENDAMENTO!!! Voce ja agendou sua primeira dose.\n");
-						}
-						else{
-							if(auxResultado==4){//se j� est� agendado
-								printf("ERRO NO AGENDAMENTO!!! Voce ja agendou sua segunda dose.\n");
-							}
-							else{
-								if(auxResultado==9){//se nao tomou nenhuma dose
-									printf("ERRO NO AGENDAMENTO!!! Nao foi encontrado seu cartao no banco de dados.\n");	
-								}
-								else{
-									if(auxResultado==0){//se nao tomou nenhuma dose
-										printf("Primeira dose agendada com sucesso!!! Compareca ao local de vacinacao no dia 10/01/2022.\n");	
-									}
-									else{
-										printf("ERRO NO AGENDAMENTO!!! Nao foi encontrado seu cartao no banco de dados.\n");
-									}
-									
-								}
-									
-							}
-						}
-					}
-				}
+					break;
+				case 2:
+					printf("ERRO NO AGENDAMENTO!!! As duas doses da vacina ja foram tomadas.\n");
+					break;
+				case 3:
+					printf("ERRO NO AGENDAMENTO!!! Voce ja agendou sua primeira dose.\n");
+					break;
+				case 4:
+					printf("ERRO NO AGENDAMENTO!!! Voce ja agendou sua segunda dose.\n");
+					break;
+				case 9:
+					//Buscar em outro banco
+					findin_another_server(numCartao, tamanhoNum);
+					break;
+
+				default:
+					printf("ERRO NO AGENDAMENTO!!! Nao foi encontrado seu cartao no banco de dados.\n");
+					break;
 			}
 		}
 		

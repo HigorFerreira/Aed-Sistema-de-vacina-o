@@ -14,6 +14,7 @@ struct request_vac {
 	char id_type;
 	int qtt_vacinas;
 	char status;
+	int dose;
 };
 
 program ADD_PROG{
@@ -29,5 +30,6 @@ program ADD_PROG{
 		estado objeto(estado)=9;
 
 		request_vac requisitar_vacina(request_vac)=10;
+		void sumQttVac(int)=20;
 	}=1;
 }=0x23451111;

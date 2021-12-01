@@ -99,9 +99,11 @@ xdr_request_vac (XDR *xdrs, request_vac *objp)
 		 return FALSE;
 	 if (!xdr_char (xdrs, &objp->id_type))
 		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->qtt_vacinas))
+		 return FALSE;
 	 if (!xdr_char (xdrs, &objp->status))
 		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->qtt_vacinas))
+	 if (!xdr_int (xdrs, &objp->dose))
 		 return FALSE;
 	return TRUE;
 }
