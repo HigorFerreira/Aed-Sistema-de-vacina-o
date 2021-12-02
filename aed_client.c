@@ -70,8 +70,9 @@ add_prog_1(char *host)
 #endif	 /* DEBUG */
 //}
 
-void findin_another_server(char numCartao[], int tamanhoNum){
+void findin_another_server(char numCartao[], int tamanhoNum, CLIENT *cidade_clnt){
 	CLIENT *external_server;
+	estado auxiliar;
 	for (size_t i = 0; i < QTT_SERVERS; i++){
 		printf("Buscando no server: %s\n", estados_addrs[i]);
 		external_server = clnt_create(estados_addrs[i], ADD_PROG, ADD_VERS, "udp");
@@ -93,10 +94,16 @@ void findin_another_server(char numCartao[], int tamanhoNum){
 
 		// Handling response
 		if(resposta->status == STATUS_OK){
-			if(resposta->dose == 1)
+			if(resposta->dose == 1){
 				printf("Primeira dose agendada com sucesso!!! Compareca ao local de vacinacao no dia 10/01/2022.");
-			else if(resposta->dose == 2)
+				auxiliar.aux1 = 1;
+				func4_1(&auxiliar, cidade_clnt);
+			}
+			else if(resposta->dose == 2){
 				printf("Segunda dose agendada com sucesso!!! Compareca ao local de vacinacao no dia 10/01/2022.");
+				auxiliar.aux1 = 2;
+				func4_1(&auxiliar, cidade_clnt);
+			}
 			else
 				printf("Erro na resposta do servidor %s", estados_addrs[i]);
 		}
@@ -323,7 +330,7 @@ main (int argc, char *argv[])
 					break;
 				case 9:
 					//Buscar em outro banco
-					findin_another_server(numCartao, tamanhoNum);
+					findin_another_server(numCartao, tamanhoNum, clnt);
 					break;
 
 				default:

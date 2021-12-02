@@ -30,6 +30,5 @@ program ADD_PROG{
 		estado objeto(estado)=9;
 
 		request_vac requisitar_vacina(request_vac)=10;
-		void sumQttVac(int)=20;
 	}=1;
 }=0x23451111;

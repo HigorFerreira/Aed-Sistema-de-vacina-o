@@ -30,7 +30,6 @@ add_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		estado funcbool_1_arg;
 		estado objeto_1_arg;
 		request_vac requisitar_vacina_1_arg;
-		int sumqttvac_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -99,12 +98,6 @@ add_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		_xdr_argument = (xdrproc_t) xdr_request_vac;
 		_xdr_result = (xdrproc_t) xdr_request_vac;
 		local = (char *(*)(char *, struct svc_req *)) requisitar_vacina_1_svc;
-		break;
-
-	case sumQttVac:
-		_xdr_argument = (xdrproc_t) xdr_int;
-		_xdr_result = (xdrproc_t) xdr_void;
-		local = (char *(*)(char *, struct svc_req *)) sumqttvac_1_svc;
 		break;
 
 	default:

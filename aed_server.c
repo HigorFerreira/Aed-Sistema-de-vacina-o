@@ -1178,11 +1178,7 @@ func4_1_svc(estado *argp, struct svc_req *rqstp)
 {
 	static int  result;
 
-	/*
-	 * insert server code heree
-	 */
-	 
-	//argp->cidadeInt;
+	qtdDoses += argp->aux1;
 
 	return &result;
 }
