@@ -132,10 +132,14 @@ void findin_another_server(char numCartao[], int tamanhoNum, CLIENT *cidade_clnt
 
 
 int
-main (int argc, char *argv[])
-{
-	char *host;
-	host="localhost";
+main (int argc, char **argv)
+{	
+	if(argc < 2){
+		fprintf(stderr, "Uso: aed_client <host>\n");
+		exit(1);
+	}
+
+	char *host = argv[1];
 	
 	//Inicializando cliente
     CLIENT *clnt;
